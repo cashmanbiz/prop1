@@ -18,14 +18,16 @@ $forms = $wp_properties['configuration']['feature_settings']['feps']['forms'];
 
 <?php if ( have_properties() ): ?>
 
-  <div class="<?php wpp_css('property_overview::row_view', 'wpp_row_view wpp_feps_row' ); ?>">
+  <div class="<?php wpp_css('property_overview::row_view', 'wpp_row_view wpp_feps_row' ); ?>"> 
 
   <?php foreach ( (array)returned_properties( 'load_gallery=false' ) as $property ): the_post(); ?>
-    <div class="<?php wpp_css('property_overview::property_div', 'property_div' ); ?>">
+  <div class="<?php wpp_css('property_overview::property_div', 'property_div' ); ?>"> 
       <div class="<?php wpp_css('property_overview::left_column', 'wpp_overview_left_column' ); ?>">
-        <?php property_overview_image(); ?>
+        <!--<div style="position : relative ; float : left"><?php property_overview_image(); ?></div> -->
+		<?php property_overview_image(); ?>
       </div>
-     <!-- <div class="<?php wpp_css('property_overview::right_column', 'wpp_overview_right_column' ); ?>">
+	  
+  <!-- <div class="<?php wpp_css('property_overview::right_column', 'wpp_overview_right_column' ); ?>">
 
         <ul class="<?php wpp_css('property_overview::data', 'wpp_overview_data' ); ?>">
           <li class="<?php wpp_css('property_overview::property_title', 'property_title' ); ?>">
@@ -38,7 +40,7 @@ $forms = $wp_properties['configuration']['feature_settings']['feps']['forms'];
         </ul>
 
       </div>
-	  -->
+	  
       <div class="<?php wpp_css('property_overview::right_column', 'wpp_overview_feps_column' ); ?>">
         <ul class="<?php wpp_css('property_overview::data', 'wpp_overview_data_detail feps_action clearfix' ); ?>">
           <li class="<?php wpp_css('property_overview::post_status', 'post_status' ); ?>">
@@ -67,12 +69,12 @@ $forms = $wp_properties['configuration']['feature_settings']['feps']['forms'];
           </li>
           <?php endif; ?>
         </ul>
-      </div>
-    </div>
+      </div> -->
+	  
+   </div>
   <?php endforeach; ?>
 
   </div>
-
 <?php else: ?>
 
 <?php endif; ?>
