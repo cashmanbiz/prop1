@@ -22,3 +22,35 @@ padding: 10px 0 15px;
 .header_business_card {
 margin-top: 45px;
 }
+
+
+.wpp_grid_view .property_div_nugent {
+background: none repeat scroll 0 0 #F4F4F4;
+border: 0px solid #E6E6E6;
+border-radius: 0;
+-moz-border-radius: 0
+display: block;
+float: left;
+margin: 0px;
+padding: 0px;
+width: 200px;
+position: relative;
+}
+
+.wpp_overview_left_column_nugent {
+  display: block;
+  padding: 0;
+  float: left;
+  height : 146px;
+}
+.wpp_row_view .property_div .wpp_overview_left_column_nugent.div_block {
+  margin: 10px 0 10px 10px;
+}
+
+.sidebar .wpp_row_view div.property_div .wpp_overview_left_column_nugent {
+padding: 0;
+}
+.wpp_row_view .property_div .wpp_overview_left_column_nugent {
+display:table-cell;
+padding:0px;
+}
