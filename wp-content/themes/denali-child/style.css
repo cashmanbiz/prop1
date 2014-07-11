@@ -33,7 +33,7 @@ display: block;
 float: left;
 margin: 0px;
 padding: 0px;
-width: 200px;
+width: 180px;
 position: relative;
 }
 
@@ -41,10 +41,10 @@ position: relative;
   display: block;
   padding: 0;
   float: left;
-  height : 146px;
+  height : 175px;
 }
 .wpp_row_view .property_div .wpp_overview_left_column_nugent.div_block {
-  margin: 10px 0 10px 10px;
+  margin: 0px 0 0px 0px;
 }
 
 .sidebar .wpp_row_view div.property_div .wpp_overview_left_column_nugent {
@@ -54,3 +54,5 @@ padding: 0;
 display:table-cell;
 padding:0px;
 }
+
+

@@ -18,11 +18,11 @@ global $ds;
 
 <?php if ( have_properties() ) { ?>
 
-  <script type="text/javascript"><?php do_action('wpp_js_on_property_overview_display', 'grid'); ?> </script>
+ <!-- <script type="text/javascript"><?php do_action('wpp_js_on_property_overview_display', 'grid'); ?> </script> -->
 
   <div class="wpp_grid_view all-properties wpp_property_view_result clearfix">
 
-  <?php foreach ( returned_properties('load_gallery=false') as $property) {  ?>
+  <?php foreach ( returned_properties('load_gallery=true') as $property) {  ?>
 
     <div class="property_div_nugent <?php echo $property['post_type']; ?> <?php echo $property['property_type']; ?> clearfix">
 
