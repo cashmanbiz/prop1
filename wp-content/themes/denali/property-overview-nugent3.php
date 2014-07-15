@@ -18,8 +18,7 @@ global $ds;
 
 <?php if ( have_properties() ) { ?>
 
- <!-- <script type="text/javascript"><?php do_action('wpp_js_on_property_overview_display', 'grid'); ?> </script> -->
-
+ <script type="text/javascript"><?php do_action('wpp_js_on_property_overview_display', 'grid'); ?> </script>
   <div class="wpp_grid_view all-properties wpp_property_view_result clearfix">
 
   <?php foreach ( returned_properties('load_gallery=true') as $property) {  ?>
@@ -29,6 +28,9 @@ global $ds;
       <div class="wpp_overview_left_column_nugent">
         <?php property_overview_image("image_type={$thumbnail_size}"); ?>
       </div>
+	 
+	  <div id="nugentsliderow1"><a style="color : #ccc;" href="<?php echo $property['permalink']; ?>"><?php echo $property['area']; ?><?php if(isset($property['bedrooms'])) echo " - ".$property['bedrooms']." Bed"; ?> <?php echo " - ".$property['property_type_label'] ; ?></a></div>
+
 
     </div><?php // .property_div_nugent ?>
   <?php } ?>

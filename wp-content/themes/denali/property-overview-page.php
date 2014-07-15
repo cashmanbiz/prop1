@@ -44,8 +44,7 @@
 
       </div>
     </div>
-
-
+	
   <?php if ($have_sidebar) : ?>
     <div class="sidebar">
         <?php dynamic_sidebar( 'property_overview_sidebar' ); ?>
