@@ -26,7 +26,7 @@
 
 <?php get_header() ?>
 
-<?php get_template_part('attention','home'); ?>
+<div id="nugenthomeslide"><?php get_template_part('attention','home'); ?></div>
 
 <div id="content" class="inner_content_wrapper <?php echo ($have_sidebar  ? ' have-sidebar' : 'wide-home no_columns'); ?>">
 

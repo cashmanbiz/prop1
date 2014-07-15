@@ -40,11 +40,11 @@
   <div id="post-<?php the_ID(); ?>" <?php post_class('main property_page_post'); ?>>
     <div id="container" class="<?php echo (!empty($property['property_type']) ? $property['property_type'] . "_container" : "");?>">
       <div class="property_title_wrapper building_title_wrapper">
-        <h1 class="property-title entry-title"><?php the_title(); ?></h1>
-        <h3 class="entry-subtitle"><?php the_tagline(); ?></h3>
-		<h1><strong>Price: <?php echo $property['price']; ?>
-		</strong>BER: <?php echo $property['ber']; ?></h1>
+        <div style="position : relative; float : left;"><h1 class="property-title entry-title"><?php the_title(); ?></h1></div>
+		<div style="position: relative ; float : right ;"><IMG src="<?php echo get_stylesheet_directory_uri() ?>/img/ber/<?php echo $property['ber']; ?>-s.png"</IMG></div>
 		
+        <div style="clear : both;"> <h3 class="entry-subtitle"><?php the_tagline(); ?></h3></div>
+		<div><h1><strong>Price: <?php echo $property['price']; ?></strong></div>	
 
       </div>
 
