@@ -90,14 +90,14 @@ global $ds;
             }
           ?>
 
-          <?php if ($overview_attributes): ?>
+        <?php if ($overview_attributes): ?>
             <ul class="wpp_overview_data_detail" style="">
             <?php echo implode('', $overview_attributes); ?>
             <?php if (!empty($wpp_query['detail_button'])) : ?>
                 <li><a <?php echo $in_new_window; ?> class="denali-button" href="<?php echo $property['permalink']; ?>"><?php echo $wpp_query['detail_button'] ?></a></li>
               <?php endif; ?>
             </ul>
-            <?php endif; ?>
+            <?php endif; ?> 
 
 
 

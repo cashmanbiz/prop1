@@ -15,6 +15,11 @@
 
 @import url("../denali/style.css");
 
+.wrapper{ 
+	background-image : none !important;
+	background-color: #bbb;
+}
+
 div.mid {
 padding: 10px 0 15px;
 }
@@ -104,6 +109,16 @@ padding:0px;
   float : left;
 }
 
+#nugent-listheader {
+    position: relative;
+	height : 5px;
+}
+#nugent-listheader h2{
+	margin-bottom :0px;
+}
+
+
+
 #nugent-area {
 	width : 100px;
 	min-height : 1px;
@@ -135,6 +150,7 @@ padding:0px;
 	min-height : 1px;
 	font-size : small;
 	font-weight : bold;
+	text-align : right;
 }
 
 .wpp_overview_right_column_nugent {
@@ -145,4 +161,51 @@ padding:0px;
 	margin-bottom:0px !important;
 }
 
+#nugent-sidebar .sidebar {
+	width : 220px;
+} 
 
+#nugent-sidebar .sidebar .denali_widget {
+	width : 185px;
+} 
+
+#nugent-home .home {
+	width : 720px;
+}
+
+#nugent-home  .wpp_top_pagination  {
+	height : 20px;
+}
+
+#nugent-home .denali_widget_area_tabs , #nugent-home .properties_pagination {
+	margin: 0 0 0px !important;
+	height: 24px;
+}	
+
+
+/* remove <br> from after residental list overview */
+#nugent-home .cb {
+	display : none;
+}
+.inner_footer {
+	width : 965px;
+}
+
+/* change font color of supermap options label */
+
+.supermap_filter_wrapper .hide_filter  a {
+   color : #ffffff !important;
+   text-decoration : underline !important;
+}
+
+/* change width of title in featured properties for sidebar */
+
+#nugent-sidebar p.title {
+	width : 170px;
+}
+
+#nugent-sidebar .wpp_widget_attribute_list li {
+ padding : 0px;
+ width :189px;
+ margin-bottom : 1px;
+}

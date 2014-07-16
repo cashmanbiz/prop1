@@ -29,11 +29,9 @@
 <div id="nugenthomeslide"><?php get_template_part('attention','home'); ?></div>
 
 <div id="content" class="inner_content_wrapper <?php echo ($have_sidebar  ? ' have-sidebar' : 'wide-home no_columns'); ?>">
-
+<div id="nugent-home">
   <div class="home main">
   
-
-
     <?php get_template_part('loop', 'home'); ?>
 
     <?php get_template_part('content','home-bottom'); ?>
@@ -41,9 +39,10 @@
     <div class="cboth"></div>
 
   </div>
+  </div>
 
   <?php if($have_sidebar): ?>
-    <div class="sidebar"><?php dynamic_sidebar( 'home_sidebar' ); ?></div>
+    <div id="nugent-sidebar"><div class="sidebar"><?php dynamic_sidebar( 'home_sidebar' ); ?></div>
   <?php endif; ?>
 
   <div class="cboth"></div>
