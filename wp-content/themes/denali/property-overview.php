@@ -35,7 +35,7 @@ global $ds;
               <a <?php echo $in_new_window; ?> href="<?php echo $property['permalink']; ?>"><?php echo $property['post_title']; ?></a>
               <?php if ($property['is_child']): ?> <?php _e('of','denali'); ?> <a <?php echo $in_new_window; ?> href='<?php echo $property['parent_link']; ?>'><?php echo $property['parent_title']; ?></a><?php endif; ?>
             </li>
-            <?php denali_draw_overview_stats(); ?>
+            <?php x(); ?>
           </ul>
 
           <?php

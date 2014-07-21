@@ -21,45 +21,9 @@
 
 ?>
 
-<?php
-static function setup_forsale_page() {
-      global $wpdb, $user_ID;
-
-        //** Check if this page actually exists */
-      $post_id = $wpdb->get_var("SELECT ID FROM {$wpdb->posts} WHERE post_name = 'home' AND post_type = 'page' AND post_status = 'publish'");
-
-      if(!$post_id) {
-        $post_id = '';
-      } else {
-        return $post_id;
-      }
-
-      $forsale_page_content[] = "<h2>Welcome to " . get_bloginfo('blogname') . "!</h2>";
-      $_page_content[] = "[property_search]";
-      //$home_page_content[] = "[property_overview per_page=5 pagination=off template=grid]";
-
-      $property_page = array(
-        'post_title' => __('For Sale', 'denali'),
-        'post_content' => implode("\n", $forsale_page_content),
-        'post_name' => 'for-sale',
-        'post_type' => 'page',
-        'post_status' => 'publish',
-        'post_id' => $post_id,
-        'post_author' =>  $user_ID
-      );
-
-      $post_id = wp_insert_post($property_page);
-
-
-      return $post_id;
-
-    }
-?>
 <?php get_header(); ?>
 
 <?php get_template_part('attention', 'page'); ?>
-
-
 
   <div id="content" class="inner_content_wrapper <?php echo ($have_sidebar  ? 'have-sidebar' : 'no_columns'); ?>">
   

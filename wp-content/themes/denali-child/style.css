@@ -209,3 +209,37 @@ padding:0px;
  width :189px;
  margin-bottom : 1px;
 }
+
+/* to narrow the list of features on main page */
+
+ul#property_stats.list li
+ {
+	padding : 2px 0px;
+ }
+
+ 
+ /* Move Enquiry form to sidebar and fit to narrower than main */
+ 
+ #nugent-sidebar-prop .sidebar {
+	width : 290px;
+ }
+ 
+ #nugent-sidebar-prop #respond {
+	width : 250px;
+	margin : 0px 5px;
+ } 
+ #nugent-sidebar-prop #respond #commentform input[type="text"] {
+	width : 240px;
+ }
+ 
+#nugent-sidebar-prop #comment {
+	width : 240px;
+}
+
+.nugent-widget {
+	width: 280px !important; 
+	padding-left : 5px; 
+	margin-left : 5px ; 
+	margin-bottom: 5px; 
+	background-color : #ffffff;"
+}
