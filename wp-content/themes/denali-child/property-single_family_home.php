@@ -25,11 +25,44 @@
   if(get_post_meta($post->ID, 'hide_sidebar', true) != 'true' && $right_sidebar) {
     $have_sidebar = true;
   }
-
-
-?>
+  
+	/* Calculate unformatted property price */
+/*	function format_property_price($property_price_formatted){
+		
+		$property_price=0;
+		
+		if($property_price_formatted) {
+			$property_price_lesscurrency=substr( $property_price_formatted, 3 ) ;  // remove currency identifier
+			$property_price=(int)intval(str_ireplace(",","",$property_price_lesscurrency));  // get integer val for property price
+			
+		}else {	
+			$property_price=0;
+		}
+		
+		return $property_price;
+	}
+*/	
+	/* Calculate stamp duty */ 
+/*	function calculate_stamp_duty($property_price){
+		$stamp_duty['rate']=1;
+		$stamp_duty_ceiling=1000000;
+		if($property_price > $stamp_duty_ceiling) $stamp_duty['rate']=2 ;
+		$stamp_duty['price']=$property_price * $stamp_duty['rate']/100;
+		
+		return $stamp_duty;
+	}
+		
+*/			
+	?>
+		
 
 <?php the_post(); ?>
+
+<?php
+//session_start();
+$_SESSION['property_price'] = $property['price'];
+
+?>
 
 <?php get_header(); ?>
 
@@ -41,7 +74,16 @@
 			<div class="property_title_wrapper building_title_wrapper">
 				<div><h1 class="property-title entry-title"><?php the_title(); ?></h1></div>
 				<div > <h3 class="entry-subtitle"><?php the_tagline(); ?></h3></div>
-				<div style="position : relative; float : left;"><h1 class="property-title entry-title" style="color:#ad907c">Price: <?php echo $property['price']; ?></div>
+				<div style="position : relative; float : left;"><h1 class="property-title entry-title" style="color:#ad907c">
+				 <?php if($property['status']=="Sale Agreed" ) { 
+					echo $property['status'] ;
+					
+				} elseif($property['status']=="Sold" ) { 
+					echo $property['status'];
+				} else { 
+					echo "Price: ".	$property['price']; 
+				}?>
+				</div>
 				<div style="position: relative ; float : right ;"><IMG src="<?php echo get_stylesheet_directory_uri() ?>/img/ber/<?php echo $property['ber']; ?>-s.png"</IMG></div>
 			</div>
 			<div style="clear : both;" class="entry-content">
@@ -91,18 +133,21 @@
 					  <span class="attribute">Baths/WCs<span class="wpp_colon">:</span></span>
 					  <span class="value"><?php echo $property['bathrooms'] ; ?>&nbsp;</span>
 					</li>
- 					<li class="property_ber wpp_stat_plain_list_ber alt">
-					  <span class="attribute">BER<span class="wpp_colon">:</span></span>
-					  <span class="value"><?php echo $property['ber'] ; ?>&nbsp;</span>
-					</li>
-								<li class="property_ber_no wpp_stat_plain_list_ber_no">
-					  <span class="attribute">BER No<span class="wpp_colon">:</span></span>
-					  <span class="value"><?php echo $property['ber_no'] ; ?>&nbsp;</span>
-					</li>
-					<li class="property_energy_performance_indicator wpp_stat_plain_list_energy_performance_indicator alt">
-					  <span class="attribute">Energy Performance Indicator<span class="wpp_colon">:</span></span>
-					  <span class="value"><?php echo $property['energy_performance_indicator'] ; ?>&nbsp;</span>
-					</li>
+					
+					<?php if ($property['ber']) {					
+						echo "<li class='property_ber wpp_stat_plain_list_ber alt'>
+						  <span class='attribute'>BER<span class='wpp_colon'>:</span></span>
+						  <span class='value'>";
+						echo $property['ber']. "&nbsp;</span></li>" ;
+						echo "<li class='property_ber_no wpp_stat_plain_list_ber_no'>
+						  <span class='attribute'>BER No<span class='wpp_colon'>:</span></span>
+						  <span class='value'>";
+						echo $property['ber_no']."&nbsp;</span></li>";
+						echo "<li class='property_energy_performance_indicator wpp_stat_plain_list_energy_performance_indicator alt'>
+						  <span class='attribute'>Energy Performance Indicator<span class='wpp_colon'>:</span></span>
+						  <span class='value'>";
+						echo $property['energy_performance_indicator']."&nbsp;</span></li>" ;
+					} ?>
 				</ul>
 			</div>
 			
@@ -125,24 +170,23 @@
 				<h2>Stamp Duty</h2>
 				
 				<?php  /* Calculate stamp duty */  
-				$stamp_duty_rate=1;
-				$stamp_duty_ceiling=1000000;
-				$property_price_formatted=substr( $property['price'], 3 ) ;  // remove currency identifier
-				$property_price=(int)intval(str_ireplace(",","",$property_price_formatted));  // get integer val for property price
-				if($property_price > $stamp_duty_ceiling) $stamp_duty_rate=2 ;
-				$stamp_duty=$property_price * $stamp_duty_rate/100;
-				$property_price_full=$stamp_duty + $property_price;
-				
+			
+					$property_price=format_property_price($property['price']);
+					$stamp_duty=calculate_stamp_duty($property_price);
+					$property_price_full=$stamp_duty['price'] + $property_price;
 				?>
 				
-				<div style="position : relative; float : left;margin 0px 5px; width:45%;"> <?php echo "@".$stamp_duty_rate."%" ?><br>
-				<?php echo substr( $property['price'], 0,3 ).number_format($stamp_duty) ; ?>		
+				<div style="position : relative; float : left;margin 0px 5px; width:45%;"> <?php echo "@".$stamp_duty['rate']."%" ?><br>
+				<?php echo substr( $property['price'], 0,3 ).number_format($stamp_duty['price']) ; ?>		
 				</div>
 				<div style="position : relative; float : left;margin 0px 5px; text-align: center;"> Total Amount <br>
 					<?php echo substr( $property['price'], 0,3 ).number_format($property_price_full) ; ?>
 				</div>
 			</div>
 			
+			<div  class="features_list nugent-widget" > 	
+			<?php echo do_shortcode('[mortgage-calculator]'); ?>
+			</div>
 			
 			<ul> 
 				<?php  get_template_part('content','single-property-inquiry'); ?>
