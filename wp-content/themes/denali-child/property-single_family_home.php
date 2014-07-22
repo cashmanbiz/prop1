@@ -26,40 +26,11 @@
     $have_sidebar = true;
   }
   
-	/* Calculate unformatted property price */
-/*	function format_property_price($property_price_formatted){
-		
-		$property_price=0;
-		
-		if($property_price_formatted) {
-			$property_price_lesscurrency=substr( $property_price_formatted, 3 ) ;  // remove currency identifier
-			$property_price=(int)intval(str_ireplace(",","",$property_price_lesscurrency));  // get integer val for property price
-			
-		}else {	
-			$property_price=0;
-		}
-		
-		return $property_price;
-	}
-*/	
-	/* Calculate stamp duty */ 
-/*	function calculate_stamp_duty($property_price){
-		$stamp_duty['rate']=1;
-		$stamp_duty_ceiling=1000000;
-		if($property_price > $stamp_duty_ceiling) $stamp_duty['rate']=2 ;
-		$stamp_duty['price']=$property_price * $stamp_duty['rate']/100;
-		
-		return $stamp_duty;
-	}
-		
-*/			
-	?>
-		
-
+?>
 <?php the_post(); ?>
 
 <?php
-//session_start();
+
 $_SESSION['property_price'] = $property['price'];
 
 ?>
@@ -74,24 +45,38 @@ $_SESSION['property_price'] = $property['price'];
 			<div class="property_title_wrapper building_title_wrapper">
 				<div><h1 class="property-title entry-title"><?php the_title(); ?></h1></div>
 				<div > <h3 class="entry-subtitle"><?php the_tagline(); ?></h3></div>
-				<div style="position : relative; float : left;"><h1 class="property-title entry-title" style="color:#ad907c">
+				<div style="position : relative; float : left; width:33%;"><h1 class="property-title entry-title" style="color:#ad907c">
 				 <?php if($property['status']=="Sale Agreed" ) { 
 					echo $property['status'] ;
 					
 				} elseif($property['status']=="Sold" ) { 
 					echo $property['status'];
 				} else { 
-					echo "Price: ".	$property['price']; 
+					if(format_property_price($property['price']) == 1) {
+						echo "Price: POA";
+					}else {
+						echo "Price: ".	$property['price'];
+					}		
 				}?>
 				</div>
-				<div style="position: relative ; float : right ;"><IMG src="<?php echo get_stylesheet_directory_uri() ?>/img/ber/<?php echo $property['ber']; ?>-s.png"</IMG></div>
+				<div id="forsale_menu">
+					<a href="#property_photos"> Photos</a> | <a href="#property_map">Map</a> | <a href="#inquiry_form"> Enquiry</a>
+				</div>
+				<div style="position: relative ; float : right ; text-align : right; width : 33%; margin-top :1px"><IMG src="<?php echo get_stylesheet_directory_uri() ?>/img/ber/<?php echo $property['ber']; ?>-s.png"</IMG>
+				</div>
+
 			</div>
+			
 			<div style="clear : both;" class="entry-content">
 				<div class="the_content">
 					<?php @the_content(); ?>
+					
+					 <a name="property_photos"></a> 
 				<?php echo do_shortcode("[property_gallery image_size=nugentslide large_size=nugentnfull   thumb_size=nugent_thumbnail carousel=false]"); ?> 
 				</div>
 			</div><!-- .entry-content -->
+			
+			   <a name="property_map"></a> 
 			<?php get_template_part('content','single-property-map'); ?>
 		</div><!-- #container -->
 	</div>	
@@ -114,7 +99,12 @@ $_SESSION['property_price'] = $property['price'];
 
 					<li class="property_price wpp_stat_plain_list_price">
 					  <span class="attribute">Price<span class="wpp_colon">:</span></span>
-					  <span class="value"><?php echo $property['price'] ; ?>&nbsp;</span>
+					  <span class="value"><?php 
+						if(format_property_price($property['price']) == 1) {
+							echo "POA";
+						}else {
+							echo $property['price']."&nbsp;<span>";
+						} ?>		
 					</li>
 					<li class="property_area wpp_stat_plain_list_area alt ">
 					  <span class="attribute">Area<span class="wpp_colon">:</span></span>
@@ -144,10 +134,27 @@ $_SESSION['property_price'] = $property['price'];
 						  <span class='value'>";
 						echo $property['ber_no']."&nbsp;</span></li>";
 						echo "<li class='property_energy_performance_indicator wpp_stat_plain_list_energy_performance_indicator alt'>
-						  <span class='attribute'>Energy Performance Indicator<span class='wpp_colon'>:</span></span>
+						  <span class='attribute'>Energy P.I.<span class='wpp_colon'>:</span></span>
 						  <span class='value'>";
 						echo $property['energy_performance_indicator']."&nbsp;</span></li>" ;
 					} ?>
+					
+					<?php if ($property['size']) {					
+						echo "<li class='property_size wpp_stat_plain_list_size_no'>
+						  <span class='attribute'>Size (c.)<span class='wpp_colon'>:</span></span>
+						  <span class='value'>";
+						echo $property['size']. "&nbsp;</span></li>" ;
+					}
+					if ($property['site_size']) {
+						echo "<li class='property_site_size_no wpp_stat_plain_list_size_size alt'>
+						  <span class='attribute'>Site Size (c.)<span class='wpp_colon'>:</span></span>
+						  <span class='value'>";
+						echo $property['site_size']."&nbsp;</span></li>";
+					
+					} ?>
+					
+					
+					
 				</ul>
 			</div>
 			
@@ -157,7 +164,7 @@ $_SESSION['property_price'] = $property['price'];
 				<?php if(get_features("type={$tax_slug}&format=count")):  ?>
 				<div  class="<?php echo $tax_slug; ?>_list features_list nugent-widget">
 					<h2><?php echo $tax_data['label']; ?></h2>
-					<ul class="wp_<?php echo $tax_slug; ?>s  wpp_feature_list clearfix">
+					<ul style="padding-left : 5px;" class="wp_<?php echo $tax_slug; ?>s  wpp_feature_list clearfix">
 						<?php get_features("type={$tax_slug}&format=list&links=false"); ?>
 					</ul>
 				</div>
@@ -172,11 +179,12 @@ $_SESSION['property_price'] = $property['price'];
 				<?php  /* Calculate stamp duty */  
 			
 					$property_price=format_property_price($property['price']);
+					if($property_price==1) { $property_price=0 ; }
 					$stamp_duty=calculate_stamp_duty($property_price);
 					$property_price_full=$stamp_duty['price'] + $property_price;
 				?>
 				
-				<div style="position : relative; float : left;margin 0px 5px; width:45%;"> <?php echo "@".$stamp_duty['rate']."%" ?><br>
+				<div style="position : relative; float : left;margin 0px 5px; padding-left : 5px; width:45%;"> <?php echo "@".$stamp_duty['rate']."%" ?><br>
 				<?php echo substr( $property['price'], 0,3 ).number_format($stamp_duty['price']) ; ?>		
 				</div>
 				<div style="position : relative; float : left;margin 0px 5px; text-align: center;"> Total Amount <br>
@@ -184,13 +192,19 @@ $_SESSION['property_price'] = $property['price'];
 				</div>
 			</div>
 			
-			<div  class="features_list nugent-widget" > 	
-			<?php echo do_shortcode('[mortgage-calculator]'); ?>
+			<div  class="features_list nugent-widget" > 
+			<h2>Mortgage Repayment Estimator</h2>			
+			<div style="padding-left : 5px;"><?php echo do_shortcode('[mortgage-calculator]'); ?></div>
 			</div>
 			
+			<div  class="features_list nugent-widget" > 
+			<h2>Property Enquiry</h2>
 			<ul> 
 				<?php  get_template_part('content','single-property-inquiry'); ?>
-				<?php dynamic_sidebar( "wpp_sidebar_" . $property['property_type'] ); ?>
+			</ul>
+			</div>
+			<ul>
+			<?php dynamic_sidebar( "wpp_sidebar_" . $property['property_type'] ); ?>
 			</ul>
 		</div>
 	</div>

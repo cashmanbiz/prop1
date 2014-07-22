@@ -202,11 +202,15 @@ function aremc_markup(){
 	$priceobj = new Propertyprice();
 	$priceobj->setPrice($_SESSION['property_price']);
 	$storedprice=substr($priceobj->getPrice(),3) ;
-	if($storedprice){
+	if($storedprice==1) { /* for POA */ 
+		$storedprice=0 ; 
+	}
+	if($storedprice >= 0){
 		$aremc_price = $storedprice;/* new price from wp-property */
 	} else {
 		$aremc_price = get_option('aremc_price');
 	}
+	
 	$aremc_down = get_option('aremc_down');
 	$aremc_interest = get_option('aremc_interest');
 	$aremc_years = get_option('aremc_years');
